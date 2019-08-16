@@ -5,11 +5,13 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 Animation frombuttom,mAnimation;
@@ -35,12 +37,17 @@ SharedPreferences mSharedPreferences;
             public void onClick(View v) {
                 mEditText=findViewById(R.id.name);
           name=mEditText.getText().toString();
-          SharedPreferences.Editor editor = mSharedPreferences.edit();
-          editor.putString("Name",name) ;
-          editor.commit();
-          Intent i = new Intent(getApplicationContext(),secondscreen.class);
-                startActivity(i);
-            }
+          if(TextUtils.isEmpty(name))
+          {
+              Toast.makeText(getApplicationContext(),"Name Cannot be Empty",Toast.LENGTH_SHORT).show();
+          }
+          else {
+              SharedPreferences.Editor editor = mSharedPreferences.edit();
+              editor.putString("Name", name);
+              editor.commit();
+              Intent i = new Intent(getApplicationContext(), secondscreen.class);
+              startActivity(i);
+          }}
         });
     }
 }
